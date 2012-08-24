@@ -48,8 +48,8 @@ class Services:
                                     "name": "Tiny Instance",
                                     "displaytext": "Tiny Instance",
                                     "cpunumber": 1,
-                                    "cpuspeed": 100,    # in MHz
-                                    "memory": 64,       # In MBs
+                                    "cpuspeed": 100, # in MHz
+                                    "memory": 64, # In MBs
                         },
                         "disk_offering": {
                                     "displaytext": "Small",
@@ -61,8 +61,8 @@ class Services:
                                 "diskname": "TestDiskServ",
                             },
                         },
-                        "customdisksize": 1,    # GBs
-                        "username": "root",     # Creds for SSH to VM
+                        "customdisksize": 1, # GBs
+                        "username": "root", # Creds for SSH to VM
                         "password": "password",
                         "ssh_port": 22,
                         "diskname": "TestDiskServ",
@@ -140,7 +140,7 @@ class TestCreateVolume(cloudstackTestCase):
         self.dbclient = self.testClient.getDbConnection()
         self.cleanup = []
 
-    @attr(tags = ["advanced", "advancedns", "smoke"])
+    @attr(tags=["advanced", "advancedns", "smoke"])
     def test_01_create_volume(self):
         """Test Volume creation for all Disk Offerings (incl. custom)
         """
@@ -333,7 +333,7 @@ class TestVolumes(cloudstackTestCase):
         self.apiClient = self.testClient.getApiClient()
         self.dbclient = self.testClient.getDbConnection()
 
-    @attr(tags = ["advanced", "advancedns", "smoke"])
+    @attr(tags=["advanced", "advancedns", "smoke"])
     def test_02_attach_volume(self):
         """Attach a created Volume to a Running VM
         """
@@ -379,7 +379,7 @@ class TestVolumes(cloudstackTestCase):
                                     (self.virtual_machine.ipaddress, e))
         return
 
-    @attr(tags = ["advanced", "advancedns", "smoke"])
+    @attr(tags=["advanced", "advancedns", "smoke"])
     def test_03_download_attached_volume(self):
         """Download a Volume attached to a VM
         """
@@ -399,7 +399,7 @@ class TestVolumes(cloudstackTestCase):
         with self.assertRaises(Exception):
             self.apiClient.extractVolume(cmd)
 
-    @attr(tags = ["advanced", "advancedns", "smoke"])
+    @attr(tags=["advanced", "advancedns", "smoke"])
     def test_04_delete_attached_volume(self):
         """Delete a Volume attached to a VM
         """
@@ -422,8 +422,8 @@ class TestVolumes(cloudstackTestCase):
                          None,
                          "Check for delete download error while volume is attached"
                          )
-        
-    @attr(tags = ["advanced", "advancedns", "smoke"])    
+
+    @attr(tags=["advanced", "advancedns", "smoke"])
     def test_05_detach_volume(self):
         """Detach a Volume attached to a VM
         """
@@ -464,7 +464,7 @@ class TestVolumes(cloudstackTestCase):
                          )
         return
 
-    @attr(tags = ["advanced", "advancedns", "smoke"])
+    @attr(tags=["advanced", "advancedns", "smoke"])
     def test_06_download_detached_volume(self):
         """Download a Volume unattached to an VM
         """
@@ -495,7 +495,7 @@ class TestVolumes(cloudstackTestCase):
                 % (extract_vol.url, self.volume.id)
             )
 
-    @attr(tags = ["advanced", "advancedns", "smoke"])
+    @attr(tags=["advanced", "advancedns", "smoke"])
     def test_07_delete_detached_volume(self):
         """Delete a Volume unattached to an VM
         """
