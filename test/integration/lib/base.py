@@ -906,7 +906,7 @@ class NATRule:
 
     @classmethod
     def create(cls, apiclient, virtual_machine, services, ipaddressid=None,
-                                                            projectid=None):
+                                        projectid=None, openfirewall=False):
         """Create Port forwarding rule"""
         cmd = createPortForwardingRule.createPortForwardingRuleCmd()
 
@@ -922,6 +922,9 @@ class NATRule:
 
         if projectid:
             cmd.projectid = projectid
+
+        if openfirewall:
+            cmd.openfirewall = True
 
         return NATRule(apiclient.createPortForwardingRule(cmd).__dict__)
 
@@ -1228,7 +1231,7 @@ class LoadBalancerRule:
 
     @classmethod
     def create(cls, apiclient, services, ipaddressid=None, accountid=None,
-                            networkid=None, projectid=None, domainid=None):
+               networkid=None, projectid=None, domainid=None):
         """Create Load balancing Rule"""
 
         cmd = createLoadBalancerRule.createLoadBalancerRuleCmd()
@@ -1524,7 +1527,8 @@ class Network:
 
     @classmethod
     def create(cls, apiclient, services, accountid=None, domainid=None,
-               networkofferingid=None, projectid=None, zoneid=None):
+               networkofferingid=None, projectid=None, zoneid=None,
+               guestcidr=None):
         """Create Network for account"""
         cmd = createNetwork.createNetworkCmd()
         cmd.name = services["name"]
@@ -1559,6 +1563,8 @@ class Network:
             cmd.domainid = domainid
         if projectid:
             cmd.projectid = projectid
+        if guestcidr:
+            cmd.guestcidr = guestcidr
 
         return Network(apiclient.createNetwork(cmd).__dict__)
 
@@ -2284,3 +2290,47 @@ class Router:
         cmd = listRouters.listRoutersCmd()
         [setattr(cmd, k, v) for k, v in kwargs.items()]
         return(apiclient.listRouters(cmd))
+
+
+class Tag:
+    """Manage tags"""
+
+    def __init__(self, items):
+        self.__dict__.update(items)
+
+    @classmethod
+    def create(cls, apiclient, resourceIds, resourceType, tags):
+        """Create tags"""
+
+        cmd = createTags.createTagsCmd()
+        cmd.resourceIds = resourceIds
+        cmd.resourcetype = resourceType
+        cmd.tags = []
+        for key, value in tags.items():
+            cmd.tags.append({
+                             'key': key,
+                             'value': value
+                            })
+        return Tag(apiclient.createTags(cmd).__dict__)
+
+    def delete(self, apiclient, resourceIds, resourceType, tags):
+        """Delete tags"""
+
+        cmd = deleteTags.deleteTagsCmd()
+        cmd.resourceIds = resourceIds
+        cmd.resourcetype = resourceType
+        cmd.tags = []
+        for key, value in tags.items():
+            cmd.tags.append({
+                             'key': key,
+                             'value': value
+                             })
+        apiclient.deleteTags(cmd)
+
+    @classmethod
+    def list(cls, apiclient, **kwargs):
+        """List all tags matching the criteria"""
+
+        cmd = listTags.listTagsCmd()
+        [setattr(cmd, k, v) for k, v in kwargs.items()]
+        return(apiclient.listTags(cmd))

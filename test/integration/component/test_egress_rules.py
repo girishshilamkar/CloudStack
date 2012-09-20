@@ -52,7 +52,7 @@ class Services:
                 "virtual_machine": {
                 # Create a small virtual machine instance with disk offering
                     "displayname": "Test VM",
-                    "username": "root",     # VM creds for SSH
+                    "username": "root", # VM creds for SSH
                     "password": "password",
                     "ssh_port": 22,
                     "hypervisor": 'XenServer',
@@ -65,8 +65,8 @@ class Services:
                     "name": "Tiny Instance",
                     "displaytext": "Tiny Instance",
                     "cpunumber": 1,
-                    "cpuspeed": 100,    # in MHz
-                    "memory": 64,       # In MBs
+                    "cpuspeed": 100, # in MHz
+                    "memory": 64, # In MBs
                 },
                 "security_group": {
                     "name": 'SSH',
@@ -78,8 +78,8 @@ class Services:
                 "sg_invalid_port": {
                     "name": 'SSH',
                     "protocol": 'TCP',
-                    "startport": -22,
-                    "endport": -22,
+                    "startport":-22,
+                    "endport":-22,
                     "cidrlist": '0.0.0.0/0',
                 },
                 "sg_invalid_cidr": {
@@ -193,11 +193,10 @@ class TestDefaultSecurityGroupEgress(cloudstackTestCase):
 
         return
 
-    @attr(tags = ["sg", "eip"])
+    @attr(tags=["sg", "eip"])
     def test_deployVM_InDefaultSecurityGroup(self):
         """Test deploy VM in default security group with no egress rules
         """
-
 
         # Validate the following:
         # 1. Deploy a VM.
@@ -350,11 +349,10 @@ class TestAuthorizeIngressRule(cloudstackTestCase):
 
         return
 
-    @attr(tags = ["sg", "eip"])
+    @attr(tags=["sg", "eip"])
     def test_authorizeIngressRule(self):
         """Test authorize ingress rule
         """
-
 
         # Validate the following:
         # 1. createaccount of type user
@@ -508,7 +506,7 @@ class TestDefaultGroupEgress(cloudstackTestCase):
 
         return
 
-    @attr(tags = ["sg", "eip"])
+    @attr(tags=["sg", "eip"])
     def test_01_default_group_with_egress(self):
         """Test default group with egress rule before VM deploy and ping, ssh
         """
@@ -709,7 +707,7 @@ class TestDefaultGroupEgressAfterDeploy(cloudstackTestCase):
 
         return
 
-    @attr(tags = ["sg", "eip"])
+    @attr(tags=["sg", "eip"])
     def test_01_default_group_with_egress(self):
         """ Test default group with egress rule added after vm deploy and ping,
             ssh test
@@ -892,7 +890,7 @@ class TestRevokeEgressRule(cloudstackTestCase):
 
         return
 
-    @attr(tags = ["sg", "eip"])
+    @attr(tags=["sg", "eip"])
     def test_revoke_egress_rule(self):
         """Test revoke security group egress rule
         """
@@ -1154,7 +1152,7 @@ class TestInvalidAccountAuthroize(cloudstackTestCase):
 
         return
 
-    @attr(tags = ["sg", "eip"])
+    @attr(tags=["sg", "eip"])
     def test_invalid_account_authroize(self):
         """Test invalid account authroize
         """
@@ -1282,7 +1280,7 @@ class TestMultipleAccountsEgressRuleNeg(cloudstackTestCase):
 
         return
 
-    @attr(tags = ["sg", "eip"])
+    @attr(tags=["sg", "eip"])
     def test_multiple_account_egress_rule_negative(self):
         """Test multiple account egress rules negative case
         """
@@ -1530,7 +1528,7 @@ class TestMultipleAccountsEgressRule(cloudstackTestCase):
 
         return
 
-    @attr(tags = ["sg", "eip"])
+    @attr(tags=["sg", "eip"])
     def test_multiple_account_egress_rule_positive(self):
         """Test multiple account egress rules positive case
         """
@@ -1821,7 +1819,7 @@ class TestStartStopVMWithEgressRule(cloudstackTestCase):
 
         return
 
-    @attr(tags = ["sg", "eip"])
+    @attr(tags=["sg", "eip"])
     def test_start_stop_vm_egress(self):
         """ Test stop start Vm with egress rules
         """
@@ -2033,7 +2031,7 @@ class TestInvalidParametersForEgress(cloudstackTestCase):
 
         return
 
-    @attr(tags = ["sg", "eip"])
+    @attr(tags=["sg", "eip"])
     def test_invalid_parameters(self):
         """ Test invalid parameters for egress rules
         """
@@ -2220,8 +2218,8 @@ class TestEgressAfterHostMaintainance(cloudstackTestCase):
 
         return
 
-    @attr(speed = "slow")
-    @attr(tags = ["sg", "eip", "maintenance"])
+    @attr(speed="slow")
+    @attr(tags=["sg", "eip", "maintenance"])
     def test_egress_after_host_maintainance(self):
         """Test maintenance case for egress
         """
