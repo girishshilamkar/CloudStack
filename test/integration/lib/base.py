@@ -2334,3 +2334,103 @@ class Tag:
         cmd = listTags.listTagsCmd()
         [setattr(cmd, k, v) for k, v in kwargs.items()]
         return(apiclient.listTags(cmd))
+
+
+class VpcOffering:
+    """Manage VPC offerings"""
+
+    def __init__(self, items):
+        self.__dict__.update(items)
+
+    @classmethod
+    def create(cls, apiclient, services):
+        """Create vpc offering"""
+
+        cmd = createVPCOffering.createVPCOfferingCmd()
+        cmd.name = "-".join([services["name"], random_gen()])
+        cmd.displaytext = services["displaytext"]
+        cmd.supportedServices = services["supportedservices"]
+        return VpcOffering(apiclient.createVPCOffering(cmd).__dict__)
+
+    def update(self, apiclient, name=None, displaytext=None, state=None):
+        """Updates existing VPC offering"""
+
+        cmd = updateVPCOffering.updateVPCOfferingCmd()
+        cmd.id = self.id
+        if name:
+            cmd.name = name
+        if displaytext:
+            cmd.displaytext = displaytext
+        if state:
+            cmd.state = state
+        return apiclient.updateVPCOffering(cmd)
+
+    @classmethod
+    def list(cls, apiclient, **kwargs):
+        """List the VPC offerings based on criteria specified"""
+
+        cmd = listVPCOfferings.listVPCOfferingsCmd()
+        [setattr(cmd, k, v) for k, v in kwargs.items()]
+        return(apiclient.listVPCOfferings(cmd))
+
+    def delete(self, apiclient):
+        """Deletes existing VPC offering"""
+
+        cmd = deleteVPCOffering.deleteVPCOfferingCmd()
+        cmd.id = self.id
+        return apiclient.deleteVPCOffering(cmd)
+
+
+class VPC:
+    """Manage Virtual Private Connection"""
+
+    @classmethod
+    def create(cls, apiclient, services, zoneid, networkDomain=None,
+                                            account=None, domainid=None):
+        """Creates the virtual provate connection (VPC)"""
+
+        cmd = createVPC.createVPCCmd()
+        cmd.name = "-".join([services["name"], random_gen()])
+        cmd.displaytext = services["displaytext"]
+        cmd.zoneid = zoneid
+        cmd.cidr = services["cidr"]
+        if account:
+            cmd.account = account
+        if domainid:
+            cmd.domainid = domainid
+        if networkDomain:
+            cmd.networkDomain = networkDomain
+        return VPC(apiclient.createVPC(cmd).__dict__)
+
+    def update(self, apiclient, name=None, displaytext=None):
+        """Updates VPC configurations"""
+
+        cmd = updateVPC.updateVPCCmd()
+        cmd.id = self.id
+        if name:
+            cmd.name = name
+        if displaytext:
+            cmd.displaytext = displaytext
+        return (apiclient.updateVPC(cmd))
+
+    def delete(self, apiclient):
+        """Delete VPC network"""
+
+        cmd = deleteVPC.deleteVPCCmd()
+        cmd.id = self.id
+        return apiclient.deleteVPC(cmd)
+
+    def restart(self, apiclient):
+        """Restarts the VPC connections"""
+
+        cmd = restartVPC.restartVPCCmd()
+        cmd.id = self.id
+        return apiclient.restartVPC(cmd)
+
+    @classmethod
+    def list(cls, apiclient, **kwargs):
+        """List VPCs"""
+
+        cmd = listVPCs.listVPCsCmd()
+        [setattr(cmd, k, v) for k, v in kwargs.items()]
+        return(apiclient.listVPCs(cmd))
